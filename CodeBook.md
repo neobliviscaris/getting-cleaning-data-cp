@@ -13,21 +13,21 @@ activity       | description
 activity_id   | numeric id of the activity (1, 2, etc.)        
 activity_label| label as found in the activity_labels.txt file 
 
- |feature        | description                                    |
- |---------------|:----------------------------------------------:|
- | feature_id    | numeric id of the the feature (1, 2, etc.)     |
- | feature_label | label as found in the features.txt file        |
+feature       | description                                  
+--------------|----------------------------------------------
+feature_id    | numeric id of the the feature (1, 2, etc.)
+feature_label | label as found in the features.txt file
 
 ### Test data frame ###
 
 Build a data frame for the test data with the following structure
 
- | full_test_data     | description                                    |
- |--------------------|:----------------------------------------------:|
- | subject_id         | subject id from the subject_test.txt file      |
- | ...                | all columns from X_test.txt                    |
- | activity_id        | activity ID from y_test.txt                    |
- | activity_label     | from the above data frame 'activity'           |
+full_test_data     | description                                  
+-------------------|:---------------------------------------------
+subject_id         | subject id from the subject_test.txt file    
+...                | all columns from X_test.txt                  
+activity_id        | activity ID from y_test.txt                  
+activity_label     | from the above data frame 'activity'         
 
  Columns above depicted as '...' were renamed using the labels in the 'feature' data frame from point 1.
 
