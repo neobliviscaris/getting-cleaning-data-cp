@@ -80,14 +80,14 @@ Basically I went from a data frame with this structure (where v1 ... vN represen
 
 In order to simplify my explanation, I will stop using the structure above and use a smaller table with a 'similar' (for the purposes of explaining) structure. v1 and v2 represent the myriad of variables (v1 ... vN above) taken from the X test/train variables.
 
- | subject_id  | v1 | v2 | activity_label |
- |:-----------:|:--:|:--:|:--------------:|
- |         1   | -1 | -4 | WALKING        |
- |         1   | -2 | -5 | RUNNING        |
- |         1   | -3 | -6 | LAYING         |
- |         2   |  7 | 10 | WALKING        |
- |         2   |  8 | 11 | RUNNING        |
- |         2   |  9 | 12 | LAYING         |
+ | subject_id | v1 | v2 | activity_label |
+ |-----------:|:--:|:--:|:--------------:|
+ |         1  | -1 | -4 | WALKING        |
+ |         1  | -2 | -5 | RUNNING        |
+ |         1  | -3 | -6 | LAYING         |
+ |         2  |  7 | 10 | WALKING        |
+ |         2  |  8 | 11 | RUNNING        |
+ |         2  |  9 | 12 | LAYING         |
 
 After applying the melt function, the resulting structure is:
 
