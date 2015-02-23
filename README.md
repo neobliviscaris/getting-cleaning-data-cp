@@ -2,7 +2,7 @@
 
  This repository contains the following files:
 
-- 'run_analysis.R': The script described in the course project page.
+- run_analysis.R: The script described in the course project page.
 
  This file assumes it is being run inside the "UCI HAR Dataset" folder resulting
  from unzipping the provided 'getdata-projectfiles-UCI HAR Dataset.zip'
@@ -21,6 +21,8 @@
  train/y_train.txt
 
  Upon execution, the script will output a file (which I also posted to the Coursera website as per the instructions) called 'tidy_data.txt'. The end result is in tidy_data. It will have 30 rows with 476 columns each.
+
+- CodeBook.md: Notes describing the variables, data, and any transformations or work performed to clean up the data.
 
 ## How to run ##
 
