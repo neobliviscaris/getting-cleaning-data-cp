@@ -5,12 +5,13 @@ a tidy data set.
 
 ### Activity and Feature frames ###
 Prep work: configure activity and feature frames to use for names and labels.
- This resulted in two data frames: 
 
- |activity       | description                                    |
- |---------------|:----------------------------------------------:|
- | activity_id   | numeric id of the activity (1, 2, etc.)        |
- | activity_label| label as found in the activity_labels.txt file |
+This resulted in two data frames: 
+
+activity       | description                                    
+---------------|------------------------------------------------
+activity_id   | numeric id of the activity (1, 2, etc.)        
+activity_label| label as found in the activity_labels.txt file 
 
  |feature        | description                                    |
  |---------------|:----------------------------------------------:|
@@ -130,6 +131,12 @@ Finally, after the melting, I could do casting. This allowed me to take the data
  |:----------:|:---------:|:---------:|:----------:|:----------:|:----------:|:----------:|
  |          1 |        -3 |        -6 |         -2 |       -5   |       -1   |       -4   |
  |          2 |         9 |        12 |          8 |       11   |        7   |       10   |
+
+The instruction I used was 
+
+```
+dataCast <- dcast(dataMelt, subject_id ~ activity_label + variable);
+```
 
 ### Adding the average ###
 
