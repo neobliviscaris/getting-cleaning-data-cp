@@ -9,16 +9,14 @@
  Also, it assumes the presence of the 'test' and 'train' folders 
  containing:
 
- * activity_labels.txt
- * features.txt
-
- * test/subject_test.txt
- * test/X_test.txt
- * test/y_test.txt
-
- * train/subject_train.txt
- * train/X_train.txt
- * train/y_train.txt
+* activity_labels.txt
+* features.txt
+* test/subject_test.txt
+* test/X_test.txt
+* test/y_test.txt
+* train/subject_train.txt
+* train/X_train.txt
+* train/y_train.txt
 
  Upon execution, the script will output a file (which I also posted to the Coursera website as per the instructions) called 'tidy_data.txt'. The end result is in tidy_data. It will have 30 rows with 476 columns each.
 

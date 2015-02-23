@@ -4,7 +4,7 @@ I will describe here the process I followed to construct the data set and transf
 a tidy data set.
 
 ### Activity and Feature frames ###
-Prep work: configure activity and feature frames to use for names and labels.
+Prep work: configure `activity` and `feature` frames to use for names and labels.  Using the `names()` function, I was able to give meaningful names to the columns of the frame.
 
 This resulted in two data frames: 
 
@@ -29,13 +29,28 @@ subject_id         | subject id from the subject_test.txt file
 activity_id        | activity ID from y_test.txt                  
 activity_label     | from the above data frame 'activity'         
 
- Columns above depicted as '...' were renamed using the labels in the 'feature' data frame from point 1.
+In order to build the data frame structure above, I read the CSV files and assigned them in the following manner:
+
+* Variable `subject_test` contents loaded from `"test//subject_test.txt"`. Columns of `x_test` (depicted above as '...') were renamed using the labels in the `feature` data frame the first section.
 
 ``` 
  names(x_test) <- feature$feature_label;
 ```
+* Variable `x_test` loaded from `"test//X_test.txt"`.
 
- Therefore a single row would look like this:
+* Variable `y_test` loaded from `"test//y_test.txt"`. Frame `y_test` was joined with the `activity` frame from the previous section.
+
+```
+y_test_with_labels <- join(y_test, activity, by = "activity_id");
+```
+
+The full test data frame was constructed using the `cbind()` function.
+
+```
+full_test_data <- cbind(subject_test, x_test, y_test_with_labels);
+```
+
+Therefore a single row in `full_test_data` would look like this:
 
 subject_test.subject_id  | ... x_test.* columns ... | ... y_test.activity_id | activity.activity_label 
 -------------------------|--------------------------|------------------------|------------------------
@@ -51,21 +66,35 @@ subject_id         | subject id from the subject_train.txt file
 activity_id        | activity ID from y_train.txt                  
 activity_label     | from the above data frame 'activity'          
 
- Columns above depicted as '...' were renamed using the labels in the 'feature' data frame from point 1.
+In order to build the data frame structure above, I read the CSV files and assigned them in the following manner:
 
-```
+* Variable `subject_train` contents loaded from `"train//subject_train.txt"`. Columns of `x_train` (depicted above as '...') were renamed using the labels in the `feature` data frame the first section.
+
+``` 
  names(x_train) <- feature$feature_label;
 ```
+* Variable `x_train` loaded from `"train//X_train.txt"`.
 
- Therefore a single row in full_train_data would looke like this:
+* Variable `y_train` loaded from `"train//y_train.txt"`. Frame `y_train` was joined with the `activity` frame from the previous section.
+
+```
+y_train_with_labels <- join(y_train, activity, by = "activity_id");
+```
+
+The full train data frame was constructed using the `cbind()` function.
+
+```
+full_train_data <- cbind(subject_train, x_train, y_train_with_labels);
+```
+
+ Therefore a single row in `full_train_data` would looke like this:
 
 subject_train.subject_id  | ... x_train.* columns ... | ... y_train.activity_id  | activity.activity_label
 --------------------------|---------------------------|--------------------------|------------------------
 
 ### Join test and train data frames ###
 
-Once both data sets were in place, I used the rbind function to build one big data set
-  that had the same columns of the test and train data sets
+Once both data sets were in place, I used the `rbind()` function to build one big data set that had the same columns of the test and train data sets.
 
 ```
   full_data_set <- rbind(full_train_data, full_test_data);
@@ -74,14 +103,14 @@ Once both data sets were in place, I used the rbind function to build one big da
 ### Include only mean and standard deviation columns ###
 
 After building the full data set, it was necessary to filter out variables and leave in only those for the
-subject_id, activity_label, mean and standard deviation. For that purpose, I used the grep() function and a regular
-expression of the form "subject_id|activity_label|mean|std" to select only the columns I was interested in from the full_data_set data frame. This means also the activity_id column was dropped from the data frame. The result of the projection of columns was placed in a variable called data_set_mean_std.
+`subject_id`, `activity_label`, mean and standard deviation. For that purpose, I used the `grep()` function and a regular
+expression of the form `"subject_id|activity_label|mean|std"` to select only the columns I was interested in from the `full_data_set` data frame. This means also the `activity_id` column was dropped from the data frame. The result of the projection of columns was placed in a variable called `data_set_mean_std`.
 
 ### One observation per row, part 1: melt ###
 
 After some reading on the Coursera discussion forums, I figured out that I was not following the 'tidy data' principle of having one 'each observation forms a row', since I was having observations for the same subject in multiple rows. This required 'melting' to make my data set 'tall and skinny'.
 
-Basically I started with data frame with this structure (where v1 ... vN represent the X test/train variables like 'tBodyAcc-mean()-X'):
+Basically I started with data frame with this structure (where `v1 ... vN` represent the X test/train variables like `tBodyAcc-mean()-X`):
 
 subject_id  |    v1             | ... |  vN   | activity_label            
 ------------|:-----------------:|-----|:-----:|:-------------------------
@@ -90,7 +119,7 @@ subject_id  |    v1             | ... |  vN   | activity_label
 1           |     ...           | ... |  ...  |    ...
 1           |     ...           | ... |  ...  |    LAYING                
 
-In order to simplify my explanation, I will stop using the structure above and use a smaller table with a 'similar' (for the purposes of explaining) structure. v1 and v2 represent the myriad of variables (v1 ... vN above) taken from the X test/train variables.
+In order to simplify my explanation, I will stop using the structure above and use a smaller table with a 'similar' (for the purposes of explaining) structure. `v1` and `v2` represent the myriad of variables (`v1 ... vN` above) taken from the X test/train variables.
 
 subject_id | v1 | v2 | activity_label
 ----------:|:--:|:--:|:--------------
@@ -104,9 +133,9 @@ subject_id | v1 | v2 | activity_label
 ```
  dataMelt <- melt(data_set_mean_std, id=c("subject_id", "activity_label"), measure.vars=setdiff(names(data_set_mean_std), c("subject_id", "activity_label")));
 ```
-The melt function I used used all the 'v1...v2' column names in the measure.vars parameter to the melt() call, which I extracted with help of the setdiff (for the difference between two sets) and the names (to get all the column names in a data frame) function.
+The `melt` function I coded used all the `'v1...v2'` column names in the `measure.vars` parameter to the `melt()` call, which I extracted with help of the `setdiff()` (for the difference between two sets) and the `names()` (to get all the column names in a data frame) function.
 
-After applying the melt function, the resulting structure is:
+After applying the `melt` function, the resulting structure is:
 
 subject_id | activity_label |  variable | value
 ----------:|:--------------:|:---------:|:-----
@@ -149,18 +178,18 @@ I was not sure how to interpret the expression in quotes in the last sentence (a
 dataCast$mean <- apply(dataCast[,2:ncol(dataCast)], 1, mean, na.rm=TRUE);
 ```
 
-The result of this apply() call is: 
+The result of this `apply()` call is: 
 
 subject_id | LAYING_v1 | LAYING_v2 | RUNNING_v1 | RUNNING_v2 | WALKING_v1 | WALKING_v2 | mean
 ----------:|:---------:|:---------:|:----------:|:----------:|:----------:|:----------:|------
          1 |        -3 |        -6 |         -2 |       -5   |       -1   |       -4   |  -3.5
          2 |         9 |        12 |          8 |       11   |        7   |       10   |   9.5
 
-The actual result has 476 columns. If we do not consider 'subject_id' and 'mean', the number of variables is 474 (depicted as 'LAYING_v1', 'LAYING_v2', in this last table).
+The actual result has 476 columns. If we do not consider `subject_id` and `mean`, the number of variables is 474 (depicted as `LAYING_v1`, `LAYING_v2`, in this last table).
 
 ### Write output file ###
 
-Finally, I placed the result in a variable 'tidy_data' and wrote it to the text file indicated in the instructions.
+Finally, I placed the result in a variable `tidy_data` and wrote it to the text file indicated in the instructions.
 
 ```
 tidy_data <- dataCast;
