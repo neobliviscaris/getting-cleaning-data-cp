@@ -20,7 +20,7 @@ feature_label | label as found in the features.txt file
 
 ### Test data frame ###
 
-Build a data frame for the test data with the following structure
+The goal was to build a data frame for the test data with the following structure:
 
 full_test_data     | description                                  
 -------------------|:---------------------------------------------
@@ -29,17 +29,17 @@ subject_id         | subject id from the subject_test.txt file
 activity_id        | activity ID from y_test.txt                  
 activity_label     | from the above data frame 'activity'         
 
-In order to build the data frame structure above, I read the CSV files and assigned them in the following manner:
+In order to build the data frame structure above, I read the CSV files and assigned them to variables in the following manner:
 
-* Variable `subject_test` contents loaded from `"test//subject_test.txt"`. 
+* Variable `subject_test` contents loaded from `"test/subject_test.txt"`. 
 
-* Variable `x_test` loaded from `"test//X_test.txt"`. Columns of `x_test` (depicted above as '...') were renamed using the labels in the `feature` data frame the first section.
+* Variable `x_test` loaded from `"test/X_test.txt"`. Columns of `x_test` (depicted above as '...') were renamed using the labels in the `feature` data frame the first section.
 
 ``` 
  names(x_test) <- feature$feature_label;
 ```
 
-* Variable `y_test` loaded from `"test//y_test.txt"`. Frame `y_test` was joined with the `activity` frame from the previous section. This introduced actual activity labels into the frame (instead of the IDs only).
+* Variable `y_test` loaded from `"test/y_test.txt"`. Frame `y_test` was joined with the `activity` frame from the previous section. This introduced actual activity labels into the frame (instead of the IDs only).
 
 ```
 y_test_with_labels <- join(y_test, activity, by = "activity_id");
@@ -53,12 +53,12 @@ full_test_data <- cbind(subject_test, x_test, y_test_with_labels);
 
 Therefore a single row in `full_test_data` would look like this:
 
-subject_test.subject_id  | ... x_test.* columns ... | ... y_test_with_labels.activity_id | y_test_with_labels.activity_label 
--------------------------|--------------------------|------------------------|----------------------------------------------
+subject_test.subject_id  | x_test.* columns  | y_test_with_labels.activity_id | y_test_with_labels.activity_label 
+-------------------------|-------------------|--------------------------------|----------------------------------
 
 ### Train data frame ###
 
-Build a data frame for the train data with the following structure
+The goal was to build a data frame for the train data with the following structure:
 
 full_train_data    | description                                   
 -------------------|:----------------------------------------------
@@ -67,17 +67,17 @@ subject_id         | subject id from the subject_train.txt file
 activity_id        | activity ID from y_train.txt                  
 activity_label     | from the above data frame 'activity'          
 
-In order to build the data frame structure above, I read the CSV files and assigned them in the following manner:
+In order to build the data frame structure above, I read the CSV files and assigned to variables them in the following manner:
 
-* Variable `subject_train` contents loaded from `"train//subject_train.txt"`. 
+* Variable `subject_train` contents loaded from `"train/subject_train.txt"`. 
 
-* Variable `x_train` loaded from `"train//X_train.txt"`. Columns of `x_train` (depicted above as '...') were renamed using the labels in the `feature` data frame the first section.
+* Variable `x_train` loaded from `"train/X_train.txt"`. Columns of `x_train` (depicted above as '...') were renamed using the labels in the `feature` data frame the first section.
 
 ``` 
  names(x_train) <- feature$feature_label;
 ```
 
-* Variable `y_train` loaded from `"train//y_train.txt"`. Frame `y_train` was joined with the `activity` frame from the previous section.  This introduced actual activity labels into the frame (instead of the IDs only).
+* Variable `y_train` loaded from `"train/y_train.txt"`. Frame `y_train` was joined with the `activity` frame from the previous section.  This introduced actual activity labels into the frame (instead of the IDs only).
 
 ```
 y_train_with_labels <- join(y_train, activity, by = "activity_id");
@@ -91,12 +91,12 @@ full_train_data <- cbind(subject_train, x_train, y_train_with_labels);
 
  Therefore a single row in `full_train_data` would looke like this:
 
-subject_train.subject_id  | ... x_train.* columns ... | ... y_train_with_labels.activity_id  | y_train_with_labels.activity_label
---------------------------|---------------------------|--------------------------|-----------------------------------------------
+subject_train.subject_id  | x_train.* columns | y_train_with_labels.activity_id | y_train_with_labels.activity_label
+--------------------------|-------------------|---------------------------------|-----------------------------------
 
 ### Join test and train data frames ###
 
-Once both test and train data sets were in complete and sharing the same columns, I used the `rbind()` function to build one big data set that had the same columns of the test and train data sets.
+Once both test and train data sets were complete and had the same columns, I used the `rbind()` function to build one big data set that had the same columns of the test and train data sets.
 
 ```
   full_data_set <- rbind(full_train_data, full_test_data);
@@ -115,11 +115,11 @@ data_set_mean_std <- full_data_set[, grep(selected_column_names_regex, colnames(
 
 ## Building the independent data set ##
 
-Based on the `data_set_mean_std` data frame above, step 5 in the instructions requires us to create an independent data set with a different structure and an additional `mean` column. The next sections describe those steps.
+Based on the `data_set_mean_std` data frame above, step 5 in the instructions asked us to create an independent data set with a different structure and an additional `mean` column. The next sections describe the steps followed to build such data set.
 
 ### One observation per row, part 1: melt ###
 
-After some reading on the Coursera discussion forums, I figured out that I was not following the 'tidy data' principle of having one 'each observation forms a row', since I was having observations for the same subject in multiple rows. This required 'melting' to make my data set 'tall and skinny'.
+After some reading on the Coursera discussion forums, I figured out that I was not following the 'tidy data' principle of having one 'each observation forms a row', since I was having observations for the same subject in multiple rows -see first table below-. This required 'melting' to make my data set 'tall and skinny'.
 
 Basically I started with data frame with this structure (where `v1 ... vN` represent the X test/train variables like `tBodyAcc-mean()-X`):
 
