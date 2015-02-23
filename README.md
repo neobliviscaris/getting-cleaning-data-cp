@@ -26,4 +26,22 @@
 
 ## How to run ##
 
-Make sure the script is inside the "UCI HAR Dataset" directory and can use relative references (as opposed to full paths, i.e. "features.txt" instead of "/some/path/to/USI HAR Dataset/features.txt") to the files in the dataset
+Make sure the script is inside the "UCI HAR Dataset" directory and can use relative references (as opposed to full paths, i.e. "features.txt" instead of "/some/path/to/USI HAR Dataset/features.txt") to the files in the dataset.
+
+```
+> source("run_analysis.R")
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:plyr’:
+
+    arrange, count, desc, failwith, id, mutate, rename, summarise, summarize
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+```
