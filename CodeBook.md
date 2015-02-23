@@ -9,14 +9,14 @@ Prep work: configure `activity` and `feature` frames to use for names and labels
 This resulted in two data frames: 
 
 activity       | description                                    
----------------|------------------------------------------------
-activity_id   | numeric id of the activity (1, 2, etc.)        
-activity_label| label as found in the activity_labels.txt file 
+---------------|-------------------------------------------------------------------
+activity_id    | numeric id of the activity (1, 2, etc.), from `activity_labels.txt`
+activity_label | label as found in the `activity_labels.txt` file 
 
 feature       | description                                  
---------------|----------------------------------------------
-feature_id    | numeric id of the the feature (1, 2, etc.)
-feature_label | label as found in the features.txt file
+--------------|---------------------------------------------------------------
+feature_id    | numeric id of the the feature (1, 2, etc.) from `features.txt`
+feature_label | label as found in the `features.txt` file
 
 ### Test data frame ###
 
@@ -24,10 +24,10 @@ The goal was to build a data frame for the test data with the following structur
 
 full_test_data     | description                                  
 -------------------|:---------------------------------------------
-subject_id         | subject id from the subject_test.txt file    
-...                | all columns from X_test.txt                  
-activity_id        | activity ID from y_test.txt                  
-activity_label     | from the above data frame 'activity'         
+subject_id         | subject id from the `subject_test.txt` file    
+...                | all columns from `X_test.txt`                  
+activity_id        | activity ID from `y_test.txt`                  
+activity_label     | from the above data frame `activity`         
 
 In order to build the data frame structure above, I read the CSV files and assigned them to variables in the following manner:
 
@@ -62,10 +62,10 @@ The goal was to build a data frame for the train data with the following structu
 
 full_train_data    | description                                   
 -------------------|:----------------------------------------------
-subject_id         | subject id from the subject_train.txt file    
-...                | all columns from X_train.txt                  
-activity_id        | activity ID from y_train.txt                  
-activity_label     | from the above data frame 'activity'          
+subject_id         | subject id from the `subject_train.txt` file    
+...                | all columns from `X_train.txt`                  
+activity_id        | activity ID from `y_train.txt`                  
+activity_label     | from the above data frame `activity`          
 
 In order to build the data frame structure above, I read the CSV files and assigned to variables them in the following manner:
 
