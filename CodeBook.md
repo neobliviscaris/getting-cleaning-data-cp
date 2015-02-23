@@ -34,10 +34,11 @@ a tidy data set.
  Therefore a single row would look like this:
 
  |subject_test.subject_id | ... x_test.* columns ... | ... y_test.activity_id activity.activity_label|
+ |------------------------|:------------------------:|:---------------------------------------------:|
 
 3. Build a data frame for the train data with the following structure
 
- | full_train_data     | description                                    |
+ | full_train_data    | description                                     |
  |--------------------|:-----------------------------------------------:|
  | subject_id         | subject id from the subject_train.txt file      |
  | ...                | all columns from X_train.txt                    |
@@ -51,7 +52,9 @@ a tidy data set.
 ```
 
  Therefore a single row in full_train_data would looke like this:
- |subject_train.subject_id | ... x_train.* columns ... | ... y_train.activity_id activity.activity_label |
+
+ |subject_train.subject_id | ... x_train.* columns ... | ... y_train.activity_id |activity.activity_label |
+ |-------------------------|:-------------------------:|:-----------------------:|:----------------------:|
 
 4. Once both data sets were in place, I used the rbind function to build one big data set
   that had the same columns of the test and train data sets
