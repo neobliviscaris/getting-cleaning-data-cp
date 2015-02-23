@@ -37,19 +37,19 @@ activity_label     | from the above data frame 'activity'
 
  Therefore a single row would look like this:
 
- | subject_test.subject_id  | ... x_test.* columns ... | ... y_test.activity_id activity.activity_label   |
- |--------------------------|:------------------------:|:------------------------------------------------:|
+subject_test.subject_id  | ... x_test.* columns ... | ... y_test.activity_id activity.activity_label 
+-------------------------|--------------------------|------------------------------------------------
 
 ### Train data frame ###
 
 Build a data frame for the train data with the following structure
 
- | full_train_data    | description                                     |
- |--------------------|:-----------------------------------------------:|
- | subject_id         | subject id from the subject_train.txt file      |
- | ...                | all columns from X_train.txt                    |
- | activity_id        | activity ID from y_train.txt                    |
- | activity_label     | from the above data frame 'activity'            |
+full_train_data    | description                                   
+-------------------|:----------------------------------------------
+subject_id         | subject id from the subject_train.txt file    
+...                | all columns from X_train.txt                  
+activity_id        | activity ID from y_train.txt                  
+activity_label     | from the above data frame 'activity'          
 
  Columns above depicted as '...' were renamed using the labels in the 'feature' data frame from point 1.
 
@@ -59,8 +59,8 @@ Build a data frame for the train data with the following structure
 
  Therefore a single row in full_train_data would looke like this:
 
- | subject_train.subject_id  | ... x_train.* columns ... | ... y_train.activity_id  | activity.activity_label |
- |---------------------------|:-------------------------:|:------------------------:|:-----------------------:|
+subject_train.subject_id  | ... x_train.* columns ... | ... y_train.activity_id  | activity.activity_label
+--------------------------|---------------------------|--------------------------|------------------------
 
 ### Join test and train data frames ###
 
@@ -83,40 +83,40 @@ After some reading on the Coursera discussion forums, I figured out that I was n
 
 Basically I went from a data frame with this structure (where v1 ... vN represent the X test/train variables like 'tBodyAcc-mean()-X'):
 
- | subject_id  |    v1             | ... |  vN   | activity_label               |
- |-------------|:-----------------:|-----|:-----:|:----------------------------:|
- | 1           |     x             |  y  |  Z    |    WALKING                   |
- | 1           |     ...           | ... |  ...  |    WALKING_UPSAIRS           |
- | 1           |     ...           | ... |  ...  |                              |
- | 1           |     ...           | ... |  ...  |    LAYING                    |
+subject_id  |    v1             | ... |  vN   | activity_label            
+------------|:-----------------:|-----|:-----:|:-------------------------
+1           |     x             |  y  |  Z    |    WALKING               
+1           |     ...           | ... |  ...  |    WALKING_UPSAIRS       
+1           |     ...           | ... |  ...  |    ...
+1           |     ...           | ... |  ...  |    LAYING                
 
 In order to simplify my explanation, I will stop using the structure above and use a smaller table with a 'similar' (for the purposes of explaining) structure. v1 and v2 represent the myriad of variables (v1 ... vN above) taken from the X test/train variables.
 
- | subject_id | v1 | v2 | activity_label |
- |:----------:|:--:|:--:|:--------------:|
- |         1  | -1 | -4 | WALKING        |
- |         1  | -2 | -5 | RUNNING        |
- |         1  | -3 | -6 | LAYING         |
- |         2  |  7 | 10 | WALKING        |
- |         2  |  8 | 11 | RUNNING        |
- |         2  |  9 | 12 | LAYING         |
+subject_id | v1 | v2 | activity_label
+----------:|:--:|:--:|:--------------
+        1  | -1 | -4 | WALKING       
+        1  | -2 | -5 | RUNNING       
+        1  | -3 | -6 | LAYING        
+        2  |  7 | 10 | WALKING       
+        2  |  8 | 11 | RUNNING       
+        2  |  9 | 12 | LAYING        
 
 After applying the melt function, the resulting structure is:
 
- | subject_id | activity_label |  variable | value |
- |:----------:|:--------------:|:---------:|:-----:|
- |        1   | WALKING        |  v1       |  -1   |
- |        1   | RUNNING        |  v1       |  -2   |
- |        1   | LAYING         |  v1       |  -3   |
- |        2   | WALKING        |  v1       |   7   |
- |        2   | RUNNING        |  v1       |   8   |
- |        2   | LAYING         |  v1       |   9   | 
- |        1   | WALKING        |  v2       |  -4   |
- |        1   | RUNNING        |  v2       |  -5   |
- |        1   | LAYING         |  v2       |  -6   |
- |        2   | WALKING        |  v2       |  10   |
- |        2   | RUNNING        |  v2       |  11   |
- |        2   | LAYING         |  v2       |  12   | 
+subject_id | activity_label |  variable | value
+----------:|:--------------:|:---------:|:-----
+       1   | WALKING        |  v1       |  -1  
+       1   | RUNNING        |  v1       |  -2  
+       1   | LAYING         |  v1       |  -3  
+       2   | WALKING        |  v1       |   7  
+       2   | RUNNING        |  v1       |   8  
+       2   | LAYING         |  v1       |   9   
+       1   | WALKING        |  v2       |  -4  
+       1   | RUNNING        |  v2       |  -5  
+       1   | LAYING         |  v2       |  -6  
+       2   | WALKING        |  v2       |  10  
+       2   | RUNNING        |  v2       |  11  
+       2   | LAYING         |  v2       |  12   
 
  The melt function I used used all the 'v1...v2' column names in the measure.vars parameter to the melt() call, which I extracted with help of the setdiff (for the difference between two sets) and the names (to get all the column names in a data frame) function.
 
@@ -127,10 +127,10 @@ After applying the melt function, the resulting structure is:
 
 Finally, after the melting, I could do casting. This allowed me to take the data close to its final shape:
 
- | subject_id | LAYING_v1 | LAYING_v2 | RUNNING_v1 | RUNNING_v2 | WALKING_v1 | WALKING_v2 |
- |:----------:|:---------:|:---------:|:----------:|:----------:|:----------:|:----------:|
- |          1 |        -3 |        -6 |         -2 |       -5   |       -1   |       -4   |
- |          2 |         9 |        12 |          8 |       11   |        7   |       10   |
+subject_id | LAYING_v1 | LAYING_v2 | RUNNING_v1 | RUNNING_v2 | WALKING_v1 | WALKING_v2
+----------:|:---------:|:---------:|:----------:|:----------:|:----------:|:----------
+         1 |        -3 |        -6 |         -2 |       -5   |       -1   |       -4  
+         2 |         9 |        12 |          8 |       11   |        7   |       10  
 
 The instruction I used was 
 
