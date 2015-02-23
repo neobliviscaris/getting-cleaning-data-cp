@@ -1,4 +1,4 @@
- =Getting and Cleaning Data, Course Project=
+ # Getting and Cleaning Data, Course Project # 
 
  This repository contains the following files:
 
@@ -20,3 +20,8 @@
  train/X_train.txt
  train/y_train.txt
 
+ Upon execution, the script will output a file (which I also posted to the Coursera website as per the instructions) called 'tidy_data.txt'. The end result is in tidy_data. It will have 30 rows with 476 columns each.
+
+## How to run ##
+
+Make sure the script is inside the "UCI HAR Dataset" directory and can use relative references (as opposed to full paths, i.e. "features.txt" instead of "/some/path/to/USI HAR Dataset/features.txt") to the files in the dataset
